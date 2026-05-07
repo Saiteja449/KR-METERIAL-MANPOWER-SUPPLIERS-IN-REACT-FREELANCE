@@ -46,8 +46,9 @@ export function Navbar() {
             <Link to="/" className="flex items-center gap-3">
               <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
               <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-xl tracking-tight text-white leading-tight whitespace-nowrap">
-                  <span className="text-amber">KR</span> Material & Manpower Supplies
+                <span className="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white leading-[1.1] sm:leading-tight">
+                  <span className="text-amber">KR</span> Material 
+                  <span className="block sm:inline">& Manpower Supplies</span>
                 </span>
               </div>
             </Link>
