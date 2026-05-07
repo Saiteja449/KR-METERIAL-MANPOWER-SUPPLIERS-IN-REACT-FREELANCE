@@ -13,11 +13,8 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-xl tracking-tight text-white leading-tight">
-                  <span className="text-amber">KR</span> Material
-                </span>
-                <span className="text-gray-400 text-[8px] uppercase tracking-[0.1em] font-semibold block leading-tight">
-                  & Manpower Supplies
+                <span className="font-heading font-extrabold text-xl tracking-tight text-white leading-tight whitespace-nowrap">
+                  <span className="text-amber">KR</span> Material & Manpower Supplies
                 </span>
               </div>
             </div>
@@ -48,7 +45,7 @@ export function Footer() {
                 { name: 'About Us', path: '/about' },
                 { name: 'Our Services', path: '/services' },
                 { name: 'Industries We Serve', path: '/industries' },
-                { name: 'Careers', path: '#' },
+                { name: 'Careers', path: '/careers' },
                 { name: 'Contact Us', path: '/contact' },
               ].map((link) => (
                 <li key={link.name}>

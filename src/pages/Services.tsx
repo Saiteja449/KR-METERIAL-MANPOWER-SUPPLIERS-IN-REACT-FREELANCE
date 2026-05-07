@@ -32,14 +32,14 @@ const servicesList = [
   },
   {
     id: 'diving',
-    title: 'Diving Support & Vessel Chartering',
+    title: 'Equipment Rentals',
     icon: <Anchor size={28} />,
     image: '/assets/images/Diving Support Vessel.jpeg',
     description: 'We facilitate the chartering of Diving Support Vessels (DSV), Supply Vessels, and specialized equipment required for subsea operations, maintenance, and underwater inspections.'
   },
   {
     id: 'equipment',
-    title: 'Crane & Forklift Hiring',
+    title: 'Oil and Gas Support',
     icon: <HardHat size={28} />,
     image: '/assets/images/Heavy Duty Crane.jpeg',
     description: 'Heavy lifting solutions back by modern, well-maintained equipment. We provide certified cranes, forklifts, and heavy machinery along with licensed operators for safe and efficient material handling.'

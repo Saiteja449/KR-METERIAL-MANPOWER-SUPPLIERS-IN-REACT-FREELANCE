@@ -145,17 +145,13 @@ export function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-            className="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-3 gap-8 sm:gap-16 w-full max-w-3xl"
+            className="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 gap-8 sm:gap-16 w-full max-w-2xl"
           >
             <div>
-              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">10+</div>
-              <div className="text-amber text-sm font-semibold uppercase tracking-wider">Years Exp</div>
+              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">5+</div>
+              <div className="text-amber text-sm font-semibold uppercase tracking-wider">yr experince</div>
             </div>
-            <div>
-              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">500+</div>
-              <div className="text-amber text-sm font-semibold uppercase tracking-wider">Professionals</div>
-            </div>
-            <div className="col-span-2 md:col-span-1">
+            <div className="col-span-1">
               <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">100%</div>
               <div className="text-amber text-sm font-semibold uppercase tracking-wider">Safety Record</div>
             </div>
@@ -265,7 +261,7 @@ export function Home() {
                 img: '/assets/images/Technical Engineer at Work.png'
               },
               {
-                title: 'Marine Support',
+                title: 'Marine And Oil Field Support',
                 desc: 'Comprehensive marine logistics including chartering of DSV and Supply Vessels.',
                 icon: <Anchor size={32} />,
                 img: '/assets/images/Diving Support Vessel.jpeg'
@@ -318,12 +314,10 @@ export function Home() {
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 gap-8">
             {[
               { num: '24/7', label: 'Operational Support' },
-              { num: '100%', label: 'Client Retention' },
-              { num: 'ISO', label: 'Certified Quality' },
-              { num: 'Zero', label: 'Lost Time Incidents' }
+              { num: '100%', label: 'Client Retention' }
             ].map((stat, i) => (
               <React.Fragment key={i}>
                 <FadeUp delay={i * 0.1}>

@@ -100,9 +100,10 @@ export function Contact() {
                       <select name="service" value={formData.service} onChange={handleChange} className="w-full bg-slate-light p-3 rounded-sm text-navy outline-none">
                         <option value="manpower">Manpower Supply</option>
                         <option value="marine">Marine Support</option>
-                        <option value="diving">Diving/Vessels</option>
-                        <option value="equipment">Crane & Equipment Hiring</option>
+                        <option value="equipment">Equipment Support</option>
+                        <option value="oil-gas">Oil and Gas Support</option>
                         <option value="other">Other Inquiry</option>
+                        <option value="chemical">Chemical</option>
                       </select>
                     </div>
                     <textarea name="message" required value={formData.message} onChange={handleChange} rows={5} className="w-full bg-slate-light px-4 py-3 rounded-sm text-navy outline-none" placeholder="Message / Requirements"></textarea>
