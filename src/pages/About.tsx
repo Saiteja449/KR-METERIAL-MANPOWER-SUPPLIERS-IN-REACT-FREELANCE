@@ -22,7 +22,7 @@ export function About() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-navy-dark/80 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=2000" 
+            src="/assets/images/Modern Industrial Office.jpeg" 
             alt="About Us Background" 
             className="w-full h-full object-cover"
           />
@@ -57,7 +57,7 @@ export function About() {
               <div className="relative">
                 <div className="rounded-sm overflow-hidden shadow-2xl relative z-10 border-l-4 border-amber">
                   <img 
-                    src="https://images.unsplash.com/photo-1581092580497-e0d23cbca152?auto=format&fit=crop&q=80&w=1000" 
+                    src="/assets/images/Offshore Rigger.jpeg" 
                     alt="Industrial Operations" 
                     className="w-full h-[600px] object-cover"
                   />
@@ -154,8 +154,7 @@ export function About() {
                 <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
                   <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 bg-navy rounded-sm overflow-hidden flex items-center justify-center relative shadow-lg">
                     {/* Placeholder for standard professional portrait */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-navy to-navy-light"></div>
-                    <span className="text-4xl text-amber font-heading font-bold relative z-10">KN</span>
+                    <img src="/assets/images/Professional Portrait.jpeg" alt="Mr. Kamaraju Neelapalli" className="w-full h-full object-cover relative z-10" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-heading font-bold text-navy mb-1">Mr. Kamaraju Neelapalli</h3>

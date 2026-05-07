@@ -37,7 +37,7 @@ export function Contact() {
       <section className="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 bg-navy/90 z-10 w-full h-full"></div>
         <img 
-          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=2000" 
+          src="/assets/images/Modern Industrial Office.jpeg" 
           alt="Contact" 
           className="absolute inset-0 z-0 w-full h-full object-cover"
         />

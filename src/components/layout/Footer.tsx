@@ -10,13 +10,16 @@ export function Footer() {
           
           {/* Company Info */}
           <div className="space-y-6">
-            <div>
-              <span className="font-heading font-bold text-2xl tracking-tight text-white flex flex-row items-center gap-2">
-                <span className="text-amber">KR</span> Material
-              </span>
-              <span className="text-gray-400 text-xs uppercase tracking-[0.1em] font-semibold block mt-1">
-                & Manpower Supplies
-              </span>
+            <div className="flex items-center gap-3">
+              <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
+              <div className="flex flex-col">
+                <span className="font-heading font-bold text-xl tracking-tight text-white leading-tight">
+                  <span className="text-amber">KR</span> Material
+                </span>
+                <span className="text-gray-400 text-[8px] uppercase tracking-[0.1em] font-semibold block leading-tight">
+                  & Manpower Supplies
+                </span>
+              </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Delivering trusted manpower & premium industrial support solutions for offshore, marine, and construction sectors in India and beyond.

@@ -61,7 +61,7 @@ export function Home() {
             initial={{ scale: 1 }}
             animate={{ scale: 1.05 }}
             transition={{ duration: 25, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-            src="https://images.unsplash.com/photo-1541888087541-155452f36f6d?auto=format&fit=crop&q=80&w=2000" 
+            src="/assets/images/Hero Background.png" 
             alt="Industrial Operations Background" 
             className="w-full h-full object-cover origin-center"
           />
@@ -72,12 +72,12 @@ export function Home() {
           <Bubbles />
         </div>
 
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 flex flex-col items-start justify-center h-full">
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-16 sm:pt-20 sm:pb-0 flex flex-col items-start justify-center min-h-full">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-sm border border-amber/30 bg-navy/50 backdrop-blur-md mb-8 shadow-xl"
+            className="hidden md:inline-flex items-center gap-3 px-4 py-2 rounded-sm border border-amber/30 bg-navy/50 backdrop-blur-md mb-8 shadow-xl"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-amber animate-pulse"></span>
             <span className="text-amber-light text-sm font-semibold tracking-widest uppercase">Trusted Industrial Partner</span>
@@ -87,7 +87,7 @@ export function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-4xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white leading-[1.2] mb-6 max-w-4xl tracking-tight"
+            className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white leading-[1.2] mb-6 max-w-4xl tracking-tight"
           >
             Delivering Trusted <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber to-amber-light inline-block min-h-[1.2em]">
@@ -202,7 +202,7 @@ export function Home() {
               <FadeUp delay={0.2}>
                 <div className="relative z-10 rounded-lg overflow-hidden shadow-2xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?auto=format&fit=crop&q=80&w=1000" 
+                    src="/assets/images/Skilled Industrial Team.png" 
                     alt="Industrial Facility" 
                     className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700"
                   />
@@ -262,19 +262,19 @@ export function Home() {
                 title: 'Manpower Supply',
                 desc: 'Specialized provision of Skilled, Semi-Skilled, and Unskilled personnel for diverse industrial needs.',
                 icon: <Users size={32} />,
-                img: 'https://images.unsplash.com/photo-1542621323-22ea6aab1479?auto=format&fit=crop&q=80&w=600'
+                img: '/assets/images/Technical Engineer at Work.png'
               },
               {
                 title: 'Marine Support',
                 desc: 'Comprehensive marine logistics including chartering of DSV and Supply Vessels.',
                 icon: <Anchor size={32} />,
-                img: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=600'
+                img: '/assets/images/Diving Support Vessel.jpeg'
               },
               {
                 title: 'Construction & Equipment',
                 desc: 'Heavy equipment logistics, crane & forklift hiring, and repair & maintenance.',
                 icon: <HardHat size={32} />,
-                img: 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&q=80&w=600'
+                img: '/assets/images/Heavy Duty Crane.jpeg'
               }
             ].map((service, i) => (
               <React.Fragment key={i}>
@@ -312,7 +312,7 @@ export function Home() {
       <section className="py-20 relative overflow-hidden bg-navy-dark">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1621685608796-03c7333ed710?auto=format&fit=crop&q=80&w=2000" 
+            src="/assets/images/Offshore Supply Ship.jpeg" 
             alt="Stats Background" 
             className="w-full h-full object-cover opacity-20"
           />

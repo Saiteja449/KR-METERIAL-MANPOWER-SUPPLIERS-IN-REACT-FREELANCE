@@ -19,7 +19,7 @@ const industries = [
     id: 'oil-gas',
     name: 'Oil & Gas',
     icon: <Droplets size={40} />,
-    bgImage: 'https://images.unsplash.com/photo-1541888087541-155452f36f6d?auto=format&fit=crop&q=80&w=1600',
+    bgImage: '/assets/images/Offshore Rigger.jpeg',
     description: 'We supply highly specialized technical manpower and support vessels required for complex offshore oil platforms and onshore refineries. Safety and strict operational tolerances are our core focus.',
     stats: ['API Compliant', 'Offshore Riggers', 'HSE Certified']
   },
@@ -27,7 +27,7 @@ const industries = [
     id: 'marine',
     name: 'Marine Operations',
     icon: <Ship size={40} />,
-    bgImage: 'https://images.unsplash.com/photo-1580828343064-fde4cad202d0?auto=format&fit=crop&q=80&w=1600',
+    bgImage: '/assets/images/Offshore Supply Ship.jpeg',
     description: 'Supporting port authorities, shipping companies, and salvage operations with diving support, stevedoring labor, and vessel chartering across the East Coast of India.',
     stats: ['DSV Provisioning', 'Port Logistics', 'Underwater Maintenance']
   },
@@ -35,7 +35,7 @@ const industries = [
     id: 'construction',
     name: 'Heavy Construction',
     icon: <HardHat size={40} />,
-    bgImage: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1600',
+    bgImage: '/assets/images/Heavy Duty Crane.jpeg',
     description: 'From mega-projects to specialized industrial facility builds, we provide the backbone of labor and lifting equipment—cranes, forklifts, and certified operators.',
     stats: ['Large-scale Labor', 'Crane Operators', 'Site Management']
   },
@@ -43,7 +43,7 @@ const industries = [
     id: 'logistics',
     name: 'Warehousing & Logistics',
     icon: <Package size={40} />,
-    bgImage: 'https://images.unsplash.com/photo-1586528116311-ad8ed7c159ec?auto=format&fit=crop&q=80&w=1600',
+    bgImage: '/assets/images/Technical Engineer at Work.png',
     description: 'End-to-end supply chain support. We handle material management, inventory storage, and dispatch teams ensuring resources reach the operation site precisely when needed.',
     stats: ['Inventory Tracking', 'Material Handling', 'Secure Storage']
   }
@@ -57,7 +57,7 @@ export function Industries() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-navy/90 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1533083652873-10d61394f6c4?auto=format&fit=crop&q=80&w=2000" 
+            src="/assets/images/Hero Background.png" 
             alt="Industries" 
             className="w-full h-full object-cover"
           />

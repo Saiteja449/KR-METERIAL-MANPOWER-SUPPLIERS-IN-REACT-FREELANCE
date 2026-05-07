@@ -20,42 +20,42 @@ const servicesList = [
     id: 'manpower',
     title: 'Skilled / Semi-Skilled / Unskilled Manpower',
     icon: <Users size={28} />,
-    image: 'https://images.unsplash.com/photo-1542621323-22ea6aab1479?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Technical Engineer at Work.png',
     description: 'We provide specialized and thoroughly vetted personnel tailored to your project requirements. From highly technical rig operators to dedicated general laborers, our workforce is trained in strict safety protocols and industry standards.'
   },
   {
     id: 'marine',
     title: 'Marine Support Services',
     icon: <Anchor size={28} />,
-    image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Offshore Supply Ship.jpeg',
     description: 'Comprehensive logistics and support for maritime operations. We manage port operations, vessel clearings, and ensure seamless transfer of personnel and equipment between onshore and offshore facilities.'
   },
   {
     id: 'diving',
     title: 'Diving Support & Vessel Chartering',
     icon: <Anchor size={28} />,
-    image: 'https://images.unsplash.com/photo-1516283250450-17438ec9ef5f?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Diving Support Vessel.jpeg',
     description: 'We facilitate the chartering of Diving Support Vessels (DSV), Supply Vessels, and specialized equipment required for subsea operations, maintenance, and underwater inspections.'
   },
   {
     id: 'equipment',
     title: 'Crane & Forklift Hiring',
     icon: <HardHat size={28} />,
-    image: 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Heavy Duty Crane.jpeg',
     description: 'Heavy lifting solutions back by modern, well-maintained equipment. We provide certified cranes, forklifts, and heavy machinery along with licensed operators for safe and efficient material handling.'
   },
   {
     id: 'warehouse',
     title: 'Warehouse Management Solutions',
     icon: <Warehouse size={28} />,
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8ed7c159ec?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Skilled Industrial Team.png',
     description: 'Turnkey storage and inventory management. Our warehouse solutions are optimized for the dynamic needs of the offshore and construction sectors, ensuring materials are securely stored and readily available.'
   },
   {
     id: 'repair',
     title: 'Equipment Repair & Maintenance',
     icon: <Settings size={28} />,
-    image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbca152?auto=format&fit=crop&q=80&w=800',
+    image: '/assets/images/Offshore Rigger.jpeg',
     description: 'Minimizing downtime with expert maintenance services. Our technician teams are equipped to handle preventive maintenance and emergency repairs for a wide array of industrial machinery.'
   }
 ];
@@ -70,7 +70,7 @@ export function Services() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-navy/90 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" 
+            src="/assets/images/Hero Background.png" 
             alt="Services" 
             className="w-full h-full object-cover"
           />
