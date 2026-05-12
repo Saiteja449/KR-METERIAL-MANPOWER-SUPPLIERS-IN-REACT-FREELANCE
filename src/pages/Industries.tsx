@@ -17,11 +17,11 @@ const FadeUp = ({ children, delay = 0 }: { children: React.ReactNode, delay?: nu
 const industries = [
   {
     id: 'oil-gas',
-    name: 'Oil & Gas Offshore and Onshore Support',
+    name: 'Oil and Gas Support',
     icon: <Droplets size={40} />,
     bgImage: '/assets/images/Offshore Rigger.jpeg',
     description: 'We supply highly specialized technical manpower and support vessels required for complex offshore oil platforms and onshore refineries. Safety and strict operational tolerances are our core focus.',
-    stats: ['API Compliant', 'Offshore Riggers', 'HSE Certified']
+    stats: ['Manpower Supply', 'Equipment Rentals']
   },
   {
     id: 'marine',
@@ -37,7 +37,7 @@ const industries = [
     icon: <HardHat size={40} />,
     bgImage: '/assets/images/Heavy Duty Crane.jpeg',
     description: 'From mega-projects to specialized industrial facility builds, we provide the backbone of labor and lifting equipment—cranes, forklifts, and certified operators.',
-    stats: ['Large-scale Labor', 'Crane Operators', 'Site Management']
+    stats: ['Large-scale Labor', 'Operators by Officers', 'Site Management']
   },
   {
     id: 'logistics',

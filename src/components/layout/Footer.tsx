@@ -14,7 +14,7 @@ export function Footer() {
               <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
               <div className="flex flex-col">
                 <span className="font-heading font-extrabold text-xl tracking-tight text-white leading-tight whitespace-nowrap">
-                  <span className="text-amber">KR</span> Material & Manpower Supplies
+                  Material & Manpower
                 </span>
               </div>
             </div>
@@ -68,7 +68,7 @@ export function Footer() {
               {[
                 'Skilled Manpower Supply',
                 'Marine Support Services',
-                'Diving Support',
+                'Chemicals',
                 'Equipment Repair',
                 'Warehouse Management'
               ].map((service) => (
@@ -91,7 +91,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-amber shrink-0 mt-1" size={20} />
-                <span className="text-sm">Kakinada, Andhra Pradesh,<br />India - 533001</span>
+                <span className="text-sm">Kakinada, Andhra Pradesh,<br />India - 533002</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-amber shrink-0" size={20} />

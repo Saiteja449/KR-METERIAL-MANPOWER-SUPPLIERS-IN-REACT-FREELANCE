@@ -53,7 +53,7 @@ const servicesList = [
   },
   {
     id: 'repair',
-    title: 'Equipment Repair & Maintenance',
+    title: 'Repair and Maintenance Solutions',
     icon: <Settings size={28} />,
     image: '/assets/images/Offshore Rigger.jpeg',
     description: 'Minimizing downtime with expert maintenance services. Our technician teams are equipped to handle preventive maintenance and emergency repairs for a wide array of industrial machinery.'

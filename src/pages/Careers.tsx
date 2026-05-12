@@ -122,21 +122,20 @@ export function Careers() {
             </div>
           </div>
 
-          {/* <FadeUp delay={0.7}>
+          <FadeUp delay={0.7}>
             <div className="mt-16 bg-navy p-10 rounded-sm shadow-2xl text-center">
               <h3 className="text-2xl font-heading font-bold text-white mb-4">Want to work with us?</h3>
               <p className="text-gray-300 mb-8 max-w-xl mx-auto">
                 We are always looking for talented individuals to join our growing team. Send your resume and a brief cover letter to our HR department.
               </p>
               <a 
-                href="mailto:kneelapalli@gmail.com" 
+                href="mailto:hr@kr1.in" 
                 className="inline-flex bg-amber hover:bg-amber-light text-navy font-bold px-8 py-4 rounded-sm transition-all items-center justify-center gap-2 text-lg shadow-xl"
               >
-                Apply Now
-                <ChevronRight size={24} />
+                hr@kr1.in
               </a>
             </div>
-          </FadeUp> */}
+          </FadeUp>
         </div>
       </section>
     </AnimatedPage>

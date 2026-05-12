@@ -63,7 +63,7 @@ export function Contact() {
                 <div className="bg-white p-8 rounded-sm shadow-xl h-full border-b-4 border-amber">
                   <MapPin size={28} className="text-amber mb-4" />
                   <h3 className="font-heading font-bold text-navy text-xl">Head Office</h3>
-                  <p className="text-gray-600 text-sm mt-2">KR Material & Manpower Supplies<br/>Kakinada, AP, India - 533001</p>
+                  <p className="text-gray-600 text-sm mt-2">KR Material & Manpower Supplies<br/>Kakinada, AP, India - 533002</p>
                 </div>
               </FadeUp>
               <FadeUp delay={0.2}>
@@ -73,7 +73,7 @@ export function Contact() {
                   <p className="text-gray-600 text-sm mt-2">
                     <a href="tel:+919666193543">+91 9666193543</a><br/>
                     <a href="tel:+919640195484">+91 9640195484</a><br/>
-                    <a href="mailto:kneelapalli@gmail.com" className="text-navy font-semibold mt-2 block">kneelapalli@gmail.com</a>
+                    <a href="mailto:info@kr1.in" className="text-navy font-semibold mt-2 block">info@kr1.in</a>
                   </p>
                 </div>
               </FadeUp>

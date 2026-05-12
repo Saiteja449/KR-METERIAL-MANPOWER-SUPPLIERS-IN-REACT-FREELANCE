@@ -47,8 +47,7 @@ export function Navbar() {
               <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
               <div className="flex flex-col">
                 <span className="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white leading-[1.1] sm:leading-tight">
-                  <span className="text-amber">KR</span> Material 
-                  <span className="block sm:inline">& Manpower Supplies</span>
+                  Material & Manpower
                 </span>
               </div>
             </Link>
