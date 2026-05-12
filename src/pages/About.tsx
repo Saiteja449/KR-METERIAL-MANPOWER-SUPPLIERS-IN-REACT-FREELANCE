@@ -154,7 +154,7 @@ export function About() {
                 <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start">
                   <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 bg-navy rounded-sm overflow-hidden flex items-center justify-center relative shadow-lg">
                     {/* Placeholder for standard professional portrait */}
-                    <img src="/assets/images/Professional Portrait.jpeg" alt="Mr. Kamaraju Neelapalli" className="w-full h-full object-cover relative z-10" />
+                    <img src="/assets/images/owner.jpeg" alt="Mr. Kamaraju Neelapalli" className="w-full h-full object-cover relative z-10" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-heading font-bold text-navy mb-1">Mr. Kamaraju Neelapalli</h3>

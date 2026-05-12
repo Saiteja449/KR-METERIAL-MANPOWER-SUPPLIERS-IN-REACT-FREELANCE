@@ -37,7 +37,7 @@ const industries = [
     icon: <HardHat size={40} />,
     bgImage: '/assets/images/Heavy Duty Crane.jpeg',
     description: 'From mega-projects to specialized industrial facility builds, we provide the backbone of labor and lifting equipment—cranes, forklifts, and certified operators.',
-    stats: ['Large-scale Labor', 'Operators by Officers', 'Site Management']
+    stats: ['Large-scale Labor', 'Operators/Officers', 'Site Management']
   },
   {
     id: 'logistics',
