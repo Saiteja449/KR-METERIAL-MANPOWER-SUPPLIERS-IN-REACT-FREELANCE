@@ -126,17 +126,17 @@ export function Home() {
             className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
             <Link 
-              to="/services" 
-              className="bg-amber hover:bg-amber-light text-navy font-bold px-8 py-4 rounded-sm transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(245,158,11,0.6)] transform hover:-translate-y-1 w-full sm:w-auto text-lg"
+              to="/apply" 
+              className="bg-amber hover:bg-amber-light text-navy font-bold px-8 py-4 rounded-sm transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(245,158,11,0.6)] transform hover:-translate-y-1 w-full sm:w-auto text-lg font-heading"
             >
-              Explore Services
+              <span>Apply Online</span>
               <ArrowRight size={22} className="ml-1" />
             </Link>
             <Link 
-              to="/contact" 
-              className="bg-navy/50 backdrop-blur-md border border-white/20 hover:bg-white text-white hover:text-navy font-bold px-8 py-4 rounded-sm transition-all flex items-center justify-center transform hover:-translate-y-1 w-full sm:w-auto text-lg"
+              to="/services" 
+              className="bg-navy/50 backdrop-blur-md border border-white/20 hover:bg-white text-white hover:text-navy font-bold px-8 py-4 rounded-sm transition-all flex items-center justify-center transform hover:-translate-y-1 w-full sm:w-auto text-lg font-heading"
             >
-              Contact Us
+              Explore Services
             </Link>
           </motion.div>
 

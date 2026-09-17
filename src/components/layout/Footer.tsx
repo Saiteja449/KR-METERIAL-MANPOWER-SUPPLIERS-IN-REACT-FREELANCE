@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, ArrowRight, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight, Facebook, Twitter, Linkedin, ShieldCheck, User, FilePlus } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -11,10 +11,13 @@ export function Footer() {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
+              <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm border border-white/20" />
               <div className="flex flex-col">
                 <span className="font-heading font-extrabold text-xl tracking-tight text-white leading-tight whitespace-nowrap">
                   Material & Manpower
+                </span>
+                <span className="text-[10px] text-amber tracking-widest uppercase font-semibold">
+                  Suppliers & Industrial Support
                 </span>
               </div>
             </div>
@@ -45,11 +48,12 @@ export function Footer() {
                 { name: 'About Us', path: '/about' },
                 { name: 'Our Services', path: '/services' },
                 { name: 'Industries We Serve', path: '/industries' },
-                { name: 'Careers', path: '/careers' },
+                { name: 'Careers & Vacancies', path: '/careers' },
+                { name: 'Apply Online', path: '/apply' },
                 { name: 'Contact Us', path: '/contact' },
               ].map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="hover:text-amber flex items-center gap-2 transition-colors group">
+                  <Link to={link.path} className="hover:text-amber flex items-center gap-2 transition-colors group text-sm">
                     <ArrowRight size={14} className="text-cyan group-hover:translate-x-1 transition-transform" />
                     {link.name}
                   </Link>
@@ -58,27 +62,37 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Candidate & Portal Access */}
           <div>
             <h3 className="text-white font-heading font-semibold text-lg mb-6 flex items-center gap-2">
               <span className="w-8 h-1 bg-amber block"></span>
-              Core Services
+              Candidate & Portals
             </h3>
             <ul className="space-y-3 font-medium">
-              {[
-                'Skilled Manpower Supply',
-                'Marine Support Services',
-                'Chemicals',
-                'Equipment Repair',
-                'Warehouse Management'
-              ].map((service) => (
-                <li key={service}>
-                  <Link to="/services" className="hover:text-amber flex items-center gap-2 transition-colors group">
-                    <ArrowRight size={14} className="text-cyan group-hover:translate-x-1 transition-transform" />
-                    {service}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/apply" className="hover:text-amber flex items-center gap-2 transition-colors group text-sm">
+                  <FilePlus size={14} className="text-amber" />
+                  Apply for Deployment
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="hover:text-amber flex items-center gap-2 transition-colors group text-sm">
+                  <User size={14} className="text-cyan" />
+                  Candidate Dashboard Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/login" className="hover:text-amber flex items-center gap-2 transition-colors group text-sm">
+                  <ShieldCheck size={14} className="text-amber-light" />
+                  Staff / Admin Management
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber flex items-center gap-2 transition-colors group text-sm">
+                  <ArrowRight size={14} className="text-cyan" />
+                  Skilled Manpower Supply
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -117,8 +131,8 @@ export function Footer() {
             © {new Date().getFullYear()} KR Material & Manpower Supplies. All rights reserved.
           </p>
           <div className="flex gap-4 text-sm text-gray-500">
-            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/login" className="hover:text-amber transition-colors">Candidate Login</Link>
+            <Link to="/admin/login" className="hover:text-amber transition-colors">Admin Portal</Link>
           </div>
         </div>
       </div>

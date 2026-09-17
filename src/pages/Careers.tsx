@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ChevronRight, Users, Heart, Target, Sparkles } from 'lucide-react';
 import { AnimatedPage } from '../components/layout/AnimatedPage';
@@ -123,17 +124,26 @@ export function Careers() {
           </div>
 
           <FadeUp delay={0.7}>
-            <div className="mt-16 bg-navy p-10 rounded-sm shadow-2xl text-center">
-              <h3 className="text-2xl font-heading font-bold text-white mb-4">Want to work with us?</h3>
-              <p className="text-gray-300 mb-8 max-w-xl mx-auto">
-                We are always looking for talented individuals to join our growing team. Send your resume and a brief cover letter to our HR department.
+            <div className="mt-16 bg-navy p-10 rounded-sm shadow-2xl text-center border-t-4 border-amber">
+              <h3 className="text-2xl font-heading font-bold text-white mb-4">Ready to Join Our Industrial Team?</h3>
+              <p className="text-gray-300 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+                We are actively recruiting skilled and entry-level professionals for ongoing and upcoming industrial, marine, and construction projects. Register your profile today.
               </p>
-              <a 
-                href="mailto:hr@kr1.in" 
-                className="inline-flex bg-amber hover:bg-amber-light text-navy font-bold px-8 py-4 rounded-sm transition-all items-center justify-center gap-2 text-lg shadow-xl"
-              >
-                hr@kr1.in
-              </a>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link 
+                  to="/apply" 
+                  className="w-full sm:w-auto inline-flex bg-amber hover:bg-amber-light text-navy font-bold px-8 py-4 rounded-sm transition-all items-center justify-center gap-2 text-base shadow-xl transform hover:-translate-y-0.5"
+                >
+                  <Sparkles size={18} />
+                  <span>Apply Online Now</span>
+                </Link>
+                <a 
+                  href="mailto:hr@kr1.in" 
+                  className="w-full sm:w-auto inline-flex bg-navy-light hover:bg-navy text-gray-200 hover:text-white font-semibold px-6 py-4 rounded-sm transition-all items-center justify-center gap-2 text-sm border border-navy-light"
+                >
+                  <span>Email HR Desk: hr@kr1.in</span>
+                </a>
+              </div>
             </div>
           </FadeUp>
         </div>
