@@ -19,7 +19,6 @@ import { Contact } from './pages/Contact';
 import { Careers } from './pages/Careers';
 import { Apply } from './pages/Apply';
 import { Payment } from './pages/Payment';
-import { PaymentStatus } from './pages/PaymentStatus';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 
@@ -47,7 +46,6 @@ function AppRouter() {
           <Route path="careers" element={<Careers />} />
           <Route path="apply" element={<Apply />} />
           <Route path="payment/:applicationId" element={<Payment />} />
-          <Route path="payment-status/:applicationId" element={<PaymentStatus />} />
           <Route path="login" element={<Login />} />
 
           {/* Protected Candidate Dashboard */}
