@@ -21,9 +21,11 @@ import { AnimatedPage } from '../components/layout/AnimatedPage';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
 
-// UPI payment details — configure these in your .env file
+// UPI ID for the copy button
 const UPI_ID = import.meta.env.VITE_UPI_ID || 'kr1manpower@phonepe';
-const UPI_PAYEE_NAME = import.meta.env.VITE_UPI_PAYEE_NAME || 'KR Material and Manpower';
+
+// Static QR code image path (in /public/assets/images/)
+const QR_IMAGE_PATH = '/assets/images/image.png';
 
 export function Payment() {
   const { applicationId } = useParams();
@@ -155,10 +157,6 @@ export function Payment() {
   const hasDiscount =
     appData.referral?.isReferred && (appData.referral?.discountAmount || 0) > 0;
 
-  // Dynamic UPI QR string (encodes UPI ID, payee, amount and app ID as remark)
-  const upiString = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${payableAmount}&cu=INR&tn=${encodeURIComponent(applicationId)}`;
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}&bgcolor=FFFFFF&color=1a2035&margin=8`;
-
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <AnimatedPage className="bg-slate-light min-h-screen pt-28 pb-20">
@@ -264,17 +262,17 @@ export function Payment() {
             {/* QR Code + Instructions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start border border-gray-200 rounded-sm p-5 bg-slate-50/50">
 
-              {/* QR Code Box */}
+              {/* Static QR Code Image */}
               <div className="flex flex-col items-center text-center">
                 <div className="flex items-center gap-2 mb-3 bg-[#5f259f] text-white px-3 py-1.5 rounded-sm text-xs font-bold self-center">
                   <Smartphone size={13} />
                   <span>PhonePe / GPay / Any UPI</span>
                 </div>
 
-                <div className="w-56 h-56 bg-white p-2 border-2 border-dashed border-gray-300 rounded-sm shadow-inner flex items-center justify-center relative">
+                <div className="w-56 h-56 bg-white p-2 border-2 border-gray-200 rounded-sm shadow-sm flex items-center justify-center">
                   <img
-                    src={qrUrl}
-                    alt="UPI Payment QR Code"
+                    src={QR_IMAGE_PATH}
+                    alt="PhonePe UPI Payment QR Code"
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -301,8 +299,8 @@ export function Payment() {
                     Scan the <strong>QR Code</strong> on the left, <em>or</em> pay directly to the UPI ID below.
                   </li>
                   <li>
-                    Enter exact amount:{' '}
-                    <strong className="text-navy">₹{payableAmount.toLocaleString()}</strong>.
+                    Enter the exact amount:{' '}
+                    <strong className="text-navy">₹{payableAmount.toLocaleString()}</strong> manually in your UPI app.
                   </li>
                   <li>
                     Add <strong>Remark / Note</strong>:{' '}
@@ -321,7 +319,7 @@ export function Payment() {
             </div>
 
             {/* UPI ID Copy Row */}
-            <div>
+            {/* <div>
               <span className="text-[11px] text-gray-500 font-semibold block mb-1.5">
                 Or Pay Directly to UPI ID:
               </span>
@@ -341,7 +339,7 @@ export function Payment() {
                   <span>{copiedUpi ? 'Copied!' : 'Copy'}</span>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* UTR Submission Form */}
             {!isAlreadyVerified && (
