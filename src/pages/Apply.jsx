@@ -86,21 +86,12 @@ export function Apply() {
   });
 
   const [education, setEducation] = useState({
-    tenthOrTwelfth: {
-      qualificationType: '12th / Intermediate',
-      board: '',
-      instituteName: '',
-      yearOfPassing: '',
-      percentageOrCgpa: '',
-    },
-    graduation: {
-      degree: '',
-      specialization: '',
-      university: '',
-      collegeName: '',
-      yearOfPassing: '',
-      percentageOrCgpa: '',
-    },
+    qualificationLevel: '12th / Intermediate',
+    instituteName: '',
+    boardOrUniversity: '',
+    yearOfPassing: '',
+    percentageOrCgpa: '',
+    specialization: '',
   });
 
   const [resumeFile, setResumeFile] = useState(null);
@@ -212,24 +203,12 @@ export function Apply() {
     }
 
     if (
-      !education.tenthOrTwelfth.board.trim() ||
-      !education.tenthOrTwelfth.instituteName.trim() ||
-      !education.tenthOrTwelfth.yearOfPassing ||
-      !education.tenthOrTwelfth.percentageOrCgpa.trim()
+      !education.instituteName.trim() ||
+      !education.boardOrUniversity.trim() ||
+      !education.yearOfPassing ||
+      !education.percentageOrCgpa.trim()
     ) {
-      toast.error('Please complete all fields for 10th / 12th Education.');
-      return;
-    }
-
-    if (
-      !education.graduation.degree.trim() ||
-      !education.graduation.specialization.trim() ||
-      !education.graduation.university.trim() ||
-      !education.graduation.collegeName.trim() ||
-      !education.graduation.yearOfPassing ||
-      !education.graduation.percentageOrCgpa.trim()
-    ) {
-      toast.error('Please complete all Graduation / Diploma details.');
+      toast.error('Please complete all fields in the Educational Qualifications section.');
       return;
     }
 
@@ -627,84 +606,76 @@ export function Apply() {
               </h2>
             </div>
 
-            {/* 10th / 12th / Intermediate */}
-            <div className="mb-6 p-5 bg-slate-50 rounded-sm border border-gray-200">
-              <h3 className="font-heading font-bold text-sm text-navy uppercase tracking-wider mb-4 flex items-center justify-between">
-                <span>12th / Intermediate / 10th Qualification</span>
-                <span className="text-[11px] font-semibold text-amber bg-navy px-2 py-0.5 rounded-sm">
-                  Required
-                </span>
-              </h3>
-
+            {/* Single Highest Education Section */}
+            <div className="p-5 bg-slate-50 rounded-sm border border-gray-200">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
+
+                {/* Qualification Level */}
+                <div className="sm:col-span-2">
                   <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Qualification Type <span className="text-rose-500">*</span>
+                    Highest Qualification Level <span className="text-rose-500">*</span>
                   </label>
                   <select
-                    value={education.tenthOrTwelfth.qualificationType}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        tenthOrTwelfth: {
-                          ...education.tenthOrTwelfth,
-                          qualificationType: e.target.value,
-                        },
-                      })
-                    }
+                    value={education.qualificationLevel}
+                    onChange={(e) => setEducation({ ...education, qualificationLevel: e.target.value })}
                     className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
                   >
-                    <option value="12th / Intermediate">12th / Intermediate (MPC/BPC/CEC)</option>
+                    <option value="Below 10th">Below 10th</option>
                     <option value="10th / SSC">10th / SSC / Matriculation</option>
-                    <option value="Diploma / Polytechnic">Diploma / Polytechnic</option>
+                    <option value="12th / Intermediate">12th / Intermediate (MPC / BPC / CEC)</option>
                     <option value="ITI / Vocational">ITI / Vocational Certificate</option>
+                    <option value="Diploma / Polytechnic">Diploma / Polytechnic</option>
+                    <option value="Graduate (B.Tech / B.Sc / B.Com etc.)">Graduate (B.Tech / B.Sc / B.Com etc.)</option>
+                    <option value="Post Graduate (M.Tech / MBA / M.Sc etc.)">Post Graduate (M.Tech / MBA / M.Sc etc.)</option>
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Board / Council <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. State Board / CBSE / ICSE / BIEAP"
-                    value={education.tenthOrTwelfth.board}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        tenthOrTwelfth: {
-                          ...education.tenthOrTwelfth,
-                          board: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
+                {/* Institution Name */}
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    School / College Name <span className="text-rose-500">*</span>
+                    School / College / Institute Name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Sri Chaitanya Junior College / Govt High School"
-                    value={education.tenthOrTwelfth.instituteName}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        tenthOrTwelfth: {
-                          ...education.tenthOrTwelfth,
-                          instituteName: e.target.value,
-                        },
-                      })
-                    }
+                    placeholder="e.g. Govt High School / Sri Chaitanya Junior College / JNTUK"
+                    value={education.instituteName}
+                    onChange={(e) => setEducation({ ...education, instituteName: e.target.value })}
                     className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
                   />
                 </div>
 
+                {/* Board / University */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
+                    Board / University / Council <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. State Board / CBSE / JNTUK / Andhra University"
+                    value={education.boardOrUniversity}
+                    onChange={(e) => setEducation({ ...education, boardOrUniversity: e.target.value })}
+                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
+                  />
+                </div>
+
+                {/* Specialization (optional) */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
+                    Specialization / Stream
+                    <span className="text-[11px] font-normal text-gray-400 ml-1">(optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Mechanical / MPC / Marine / Electrical"
+                    value={education.specialization}
+                    onChange={(e) => setEducation({ ...education, specialization: e.target.value })}
+                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
+                  />
+                </div>
+
+                {/* Year of Passing */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
                     Year of Passing <span className="text-rose-500">*</span>
@@ -712,169 +683,16 @@ export function Apply() {
                   <input
                     type="number"
                     required
-                    min="1980"
-                    max={new Date().getFullYear()}
-                    placeholder="e.g. 2022"
-                    value={education.tenthOrTwelfth.yearOfPassing}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        tenthOrTwelfth: {
-                          ...education.tenthOrTwelfth,
-                          yearOfPassing: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Percentage / CGPA <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. 85% or 8.5 CGPA"
-                    value={education.tenthOrTwelfth.percentageOrCgpa}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        tenthOrTwelfth: {
-                          ...education.tenthOrTwelfth,
-                          percentageOrCgpa: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Graduation / Degree */}
-            <div className="p-5 bg-slate-50 rounded-sm border border-gray-200">
-              <h3 className="font-heading font-bold text-sm text-navy uppercase tracking-wider mb-4 flex items-center justify-between">
-                <span>Graduation / Highest Degree / Diploma</span>
-                <span className="text-[11px] font-semibold text-amber bg-navy px-2 py-0.5 rounded-sm">
-                  Required
-                </span>
-              </h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Degree / Course <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. B.Tech / B.Sc / B.Com / Diploma"
-                    value={education.graduation.degree}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          degree: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Specialization / Branch <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Mechanical / Civil / Marine / Electrical"
-                    value={education.graduation.specialization}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          specialization: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    University <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. JNTUK / Andhra University"
-                    value={education.graduation.university}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          university: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    College Name <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Ideal Institute of Technology"
-                    value={education.graduation.collegeName}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          collegeName: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
-                    Year of Passing <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    min="1980"
+                    min="1970"
                     max={new Date().getFullYear() + 2}
-                    placeholder="e.g. 2024"
-                    value={education.graduation.yearOfPassing}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          yearOfPassing: e.target.value,
-                        },
-                      })
-                    }
+                    placeholder="e.g. 2022"
+                    value={education.yearOfPassing}
+                    onChange={(e) => setEducation({ ...education, yearOfPassing: e.target.value })}
                     className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
                   />
                 </div>
 
+                {/* Percentage / CGPA */}
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1">
                     Percentage / CGPA <span className="text-rose-500">*</span>
@@ -883,19 +701,12 @@ export function Apply() {
                     type="text"
                     required
                     placeholder="e.g. 78% or 7.8 CGPA"
-                    value={education.graduation.percentageOrCgpa}
-                    onChange={(e) =>
-                      setEducation({
-                        ...education,
-                        graduation: {
-                          ...education.graduation,
-                          percentageOrCgpa: e.target.value,
-                        },
-                      })
-                    }
+                    value={education.percentageOrCgpa}
+                    onChange={(e) => setEducation({ ...education, percentageOrCgpa: e.target.value })}
                     className="w-full px-4 py-3 rounded-sm border border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-navy bg-white"
                   />
                 </div>
+
               </div>
             </div>
           </div>
