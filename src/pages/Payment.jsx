@@ -153,7 +153,7 @@ export function Payment() {
     appData.status === 'CONFIRMED' ||
     appData.payment?.status === 'RECEIVED';
 
-  const payableAmount = appData.payment?.amount || 1000;
+  const payableAmount = appData.payment?.amount || 1499;
   const hasDiscount =
     appData.referral?.isReferred && (appData.referral?.discountAmount || 0) > 0;
 
@@ -225,7 +225,7 @@ export function Payment() {
               <div className="flex items-baseline sm:justify-end gap-2">
                 {hasDiscount && (
                   <span className="text-sm text-gray-400 line-through">
-                    ₹{(appData.referral.originalAmount || 1000).toLocaleString()}
+                    ₹{(appData.referral.originalAmount || 1499).toLocaleString()}
                   </span>
                 )}
                 <span className="text-2xl sm:text-3xl font-heading font-extrabold text-amber">
@@ -249,12 +249,12 @@ export function Payment() {
                   <Gift size={16} className="text-amber-dark shrink-0" />
                   <span>
                     Referred by:{' '}
-                    <strong>{appData.referral.referrerName || 'Existing Member'}</strong>
+                    <strong>{appData.referral.referrerName || 'Referrer'}</strong>
                     {appData.referral.referrerPhone && ` (${appData.referral.referrerPhone})`}
                   </span>
                 </div>
                 <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-xs w-fit">
-                  -₹{appData.referral.discountAmount || 200} Discount
+                  -₹{(appData.referral.discountAmount || 150).toLocaleString()} (10% Referral Discount)
                 </span>
               </div>
             )}

@@ -47,18 +47,22 @@ export function AdminApplicationDetail() {
   const [adjustDiscount, setAdjustDiscount] = useState(0);
   const [adjustRemarks, setAdjustRemarks] = useState('');
   const [adjusting, setAdjusting] = useState(false);
+  const [downloadingResume, setDownloadingResume] = useState(false);
 
   const fetchApplication = async () => {
     if (!id) return;
     try {
       setLoading(true);
       const res = await api.getAdminApplicationById(id);
-      if (res.success && res.application) {
-        setApplication(res.application);
-        setSelectedStatus(res.application.status);
+      const appData = res.application || res.data;
+      if (res.success && appData) {
+        setApplication(appData);
+        setSelectedStatus(appData.status);
+      } else {
+        toast.error(res.message || 'Application record could not be loaded.');
       }
     } catch (err) {
-      toast.error(err.message || 'Failed to load application details.');
+      toast.error(err.message || 'Failed to fetch application.');
     } finally {
       setLoading(false);
     }
@@ -74,18 +78,26 @@ export function AdminApplicationDetail() {
     setIsConfirmModalOpen(true);
   };
 
+  const handleStatusSelectChange = (e) => {
+    const nextStatus = e.target.value;
+    setSelectedStatus(nextStatus);
+    setRemarks('');
+    setModalActionType('CHANGE_STATUS');
+    setIsConfirmModalOpen(true);
+  };
+
   const handleConfirmStatusUpdate = async () => {
     if (!id || !selectedStatus) return;
-
     try {
       setUpdating(true);
       const res = await api.updateApplicationStatus(id, selectedStatus, remarks);
-
-      if (res.success) {
-        toast.success(res.message || `Application status updated to ${selectedStatus}`);
+      const appData = res.application || res.data;
+      if (res.success && appData) {
+        setApplication(appData);
+        toast.success(`Application status successfully updated to ${selectedStatus}`);
         setIsConfirmModalOpen(false);
-        setRemarks('');
-        await fetchApplication();
+      } else {
+        toast.error(res.message || 'Failed to update application status.');
       }
     } catch (err) {
       toast.error(err.message || 'Failed to update status.');
@@ -94,10 +106,19 @@ export function AdminApplicationDetail() {
     }
   };
 
-  const handleDownloadResume = () => {
+  const handleDownloadResume = async () => {
     if (!id) return;
-    const url = api.getResumeDownloadUrl(id);
-    window.open(url, '_blank');
+    try {
+      setDownloadingResume(true);
+      const fileName = application?.resume?.originalName || `Resume_${application?.applicationId || id}.pdf`;
+      await api.downloadAdminResume(id, fileName);
+      toast.success('Resume download started!');
+    } catch (err) {
+      console.error('Download resume error:', err);
+      toast.error(err.message || 'Failed to download resume.');
+    } finally {
+      setDownloadingResume(false);
+    }
   };
 
   const handleOpenAdjustModal = () => {
@@ -116,7 +137,7 @@ export function AdminApplicationDetail() {
       return;
     }
 
-    const originalBase = application.referral?.originalAmount || 1000;
+    const originalBase = application.referral?.originalAmount || 1499;
     if (discountVal > originalBase) {
       toast.error(`Discount cannot exceed the base application fee of ₹${originalBase}.`);
       return;
@@ -221,19 +242,17 @@ export function AdminApplicationDetail() {
         {/* Left Column: Dossier Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Payment Verification Highlight Card */}
-          <div className={`p-6 rounded-sm border-2 shadow-sm ${
-            isPaymentVerified ? 'bg-emerald-50/70 border-emerald-300' : 'bg-amber/10 border-amber/40'
-          }`}>
+          <div className={`p-6 rounded-sm border-2 shadow-sm ${isPaymentVerified ? 'bg-emerald-50/70 border-emerald-300' : 'bg-amber/10 border-amber/40'
+            }`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-200">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  isPaymentVerified ? 'bg-emerald-600 text-white' : 'bg-amber text-navy'
-                }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isPaymentVerified ? 'bg-emerald-600 text-white' : 'bg-amber text-navy'
+                  }`}>
                   <CreditCard size={20} />
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-base text-navy">
-                    Registration Fee Verification (₹{(application.payment?.amount || 1000).toLocaleString()})
+                    Registration Fee Verification (₹{(application.payment?.amount || 1499).toLocaleString()})
                   </h3>
                   <p className="text-xs text-gray-600">
                     Payment Status: <strong className={isPaymentVerified ? 'text-emerald-700' : 'text-amber-800'}>
@@ -268,7 +287,7 @@ export function AdminApplicationDetail() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-xs">
               <div>
                 <span className="text-gray-500 font-semibold uppercase text-[10px] block">Payable Amount</span>
-                <span className="font-bold text-navy text-sm">₹{(application.payment?.amount || 1000).toLocaleString()}</span>
+                <span className="font-bold text-navy text-sm">₹{(application.payment?.amount || 1499).toLocaleString()}</span>
               </div>
               <div>
                 <span className="text-gray-500 font-semibold uppercase text-[10px] block">Transaction ID / UTR</span>
@@ -350,7 +369,7 @@ export function AdminApplicationDetail() {
                     Original Base Fee
                   </span>
                   <span className="font-medium text-gray-700 text-sm">
-                    ₹{(application.referral.originalAmount || 1000).toLocaleString()}
+                    ₹{(application.referral.originalAmount || 1499).toLocaleString()}
                   </span>
                 </div>
                 <div>
@@ -707,13 +726,13 @@ export function AdminApplicationDetail() {
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold block">Base Fee</span>
               <span className="font-bold text-navy text-sm">
-                ₹{(application.referral?.originalAmount || 1000).toLocaleString()}
+                ₹{(application.referral?.originalAmount || 1499).toLocaleString()}
               </span>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold block">Current Payable</span>
               <span className="font-bold text-navy text-sm">
-                ₹{(application.payment?.amount || 1000).toLocaleString()}
+                ₹{(application.payment?.amount || 1499).toLocaleString()}
               </span>
             </div>
           </div>
@@ -727,7 +746,7 @@ export function AdminApplicationDetail() {
               <input
                 type="number"
                 min="0"
-                max={application.referral?.originalAmount || 1000}
+                max={application.referral?.originalAmount || 1499}
                 value={adjustDiscount}
                 onChange={(e) => setAdjustDiscount(e.target.value)}
                 className="w-full pl-7 pr-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:border-amber text-xs font-semibold text-navy"
@@ -736,7 +755,7 @@ export function AdminApplicationDetail() {
             <span className="text-[11px] text-gray-500 mt-1 block">
               New net payable fee will be:{' '}
               <strong className="text-navy">
-                ₹{Math.max(0, (application.referral?.originalAmount || 1000) - (Number(adjustDiscount) || 0)).toLocaleString()}
+                ₹{Math.max(0, (application.referral?.originalAmount || 1499) - (Number(adjustDiscount) || 0)).toLocaleString()}
               </strong>
             </span>
           </div>

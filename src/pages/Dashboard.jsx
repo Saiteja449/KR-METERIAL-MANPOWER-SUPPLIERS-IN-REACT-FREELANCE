@@ -36,8 +36,9 @@ export function Dashboard() {
       try {
         setLoading(true);
         const res = await api.getMyApplication();
-        if (res.success && res.application) {
-          setApplication(res.application);
+        const appData = res.application || res.data;
+        if (res.success && appData) {
+          setApplication(appData);
         }
       } catch (err) {
         toast.error(err.message || 'Failed to load your application profile.');
@@ -49,8 +50,15 @@ export function Dashboard() {
     fetchApplication();
   }, []);
 
-  const handleDownloadResume = () => {
-    api.downloadMyResume();
+  const handleDownloadResume = async () => {
+    try {
+      const fileName = application?.resume?.originalName || 'My_Resume.pdf';
+      await api.downloadCandidateResume(fileName);
+      toast.success('Resume download started!');
+    } catch (err) {
+      console.error('Failed to download resume:', err);
+      toast.error(err.message || 'Failed to download resume.');
+    }
   };
 
   if (loading) {
@@ -108,8 +116,8 @@ export function Dashboard() {
         application.status === 'REJECTED'
           ? 'Application Rejected'
           : application.status === 'CONFIRMED'
-          ? 'Confirmed / Selected'
-          : 'Final Confirmation',
+            ? 'Confirmed / Selected'
+            : 'Final Confirmation',
       isCompleted: application.status === 'CONFIRMED' || application.status === 'REJECTED',
       isActive: application.status === 'CONFIRMED',
       isRejected: application.status === 'REJECTED',
@@ -180,15 +188,14 @@ export function Dashboard() {
               return (
                 <div
                   key={step.id}
-                  className={`p-4 rounded-sm border text-center transition-all ${
-                    step.isRejected
+                  className={`p-4 rounded-sm border text-center transition-all ${step.isRejected
                       ? 'bg-rose-50 border-rose-300 text-rose-800'
                       : step.isCompleted
-                      ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900'
-                      : step.isActive
-                      ? 'bg-amber/10 border-amber text-navy font-bold shadow-sm'
-                      : 'bg-gray-50 border-gray-200 text-gray-400'
-                  }`}
+                        ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900'
+                        : step.isActive
+                          ? 'bg-amber/10 border-amber text-navy font-bold shadow-sm'
+                          : 'bg-gray-50 border-gray-200 text-gray-400'
+                    }`}
                 >
                   <div className="flex items-center justify-center mb-2">
                     {step.isRejected ? (
@@ -201,9 +208,8 @@ export function Dashboard() {
                       </span>
                     ) : (
                       <span
-                        className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                          step.isActive ? 'bg-amber text-navy' : 'bg-gray-300 text-gray-600'
-                        }`}
+                        className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${step.isActive ? 'bg-amber text-navy' : 'bg-gray-300 text-gray-600'
+                          }`}
                       >
                         {idx + 1}
                       </span>
@@ -214,10 +220,10 @@ export function Dashboard() {
                     {step.isRejected
                       ? 'Review Concluded'
                       : step.isCompleted
-                      ? 'Completed'
-                      : step.isActive
-                      ? 'In Progress'
-                      : 'Pending'}
+                        ? 'Completed'
+                        : step.isActive
+                          ? 'In Progress'
+                          : 'Pending'}
                   </span>
                 </div>
               );
@@ -425,7 +431,7 @@ export function Dashboard() {
                   <>
                     <div className="flex justify-between items-center py-1 border-b border-gray-100">
                       <span className="text-gray-500">Standard Fee:</span>
-                      <span className="text-gray-700">₹{(application.referral.originalAmount || 1000).toLocaleString()}</span>
+                      <span className="text-gray-700">₹{(application.referral.originalAmount || 1499).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-1 border-b border-gray-100">
                       <span className="text-gray-500">Referral Discount:</span>
@@ -439,7 +445,7 @@ export function Dashboard() {
                 )}
                 <div className="flex justify-between items-center py-1 border-b border-gray-100">
                   <span className="text-gray-500">Amount Paid:</span>
-                  <span className="font-bold text-navy">₹{(application.payment?.amount || 1000).toLocaleString()}</span>
+                  <span className="font-bold text-navy">₹{(application.payment?.amount || 1499).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center py-1 border-b border-gray-100">
                   <span className="text-gray-500">Transaction ID:</span>

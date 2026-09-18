@@ -25,8 +25,9 @@ export function AdminReferralSettings() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState({
-    referralDiscount: 200,
-    baseApplicationFee: 1000,
+    referralDiscountPercent: 10,
+    referralDiscount: 150,
+    baseApplicationFee: 1499,
     isReferralEnabled: true,
     requireVerifiedReferrer: false,
   });
@@ -44,8 +45,9 @@ export function AdminReferralSettings() {
       const res = await api.getAdminReferralSettings();
       if (res.success) {
         setSettings({
-          referralDiscount: res.settings?.referralDiscount ?? 200,
-          baseApplicationFee: res.settings?.baseApplicationFee ?? 1000,
+          referralDiscountPercent: res.settings?.referralDiscountPercent ?? 10,
+          referralDiscount: res.settings?.referralDiscount ?? 150,
+          baseApplicationFee: res.settings?.baseApplicationFee ?? 1499,
           isReferralEnabled: res.settings?.isReferralEnabled ?? true,
           requireVerifiedReferrer: res.settings?.requireVerifiedReferrer ?? false,
         });
@@ -72,16 +74,12 @@ export function AdminReferralSettings() {
   const handleSaveSettings = async (e) => {
     e.preventDefault();
 
-    if (Number(settings.referralDiscount) < 0) {
-      toast.error('Discount amount cannot be negative.');
+    if (Number(settings.referralDiscountPercent) < 0 || Number(settings.referralDiscountPercent) > 100) {
+      toast.error('Discount percentage must be between 0% and 100%.');
       return;
     }
     if (Number(settings.baseApplicationFee) <= 0) {
       toast.error('Base application fee must be greater than zero.');
-      return;
-    }
-    if (Number(settings.referralDiscount) > Number(settings.baseApplicationFee)) {
-      toast.error('Referral discount cannot exceed the base application fee.');
       return;
     }
 
@@ -115,9 +113,12 @@ export function AdminReferralSettings() {
       ? Math.round((analytics.verifiedReferred / analytics.totalReferred) * 100)
       : 0;
 
+  const calculatedDiscount = Math.round(
+    (Number(settings.baseApplicationFee) * Number(settings.referralDiscountPercent ?? 10)) / 100
+  );
   const netDiscountedFee = Math.max(
     0,
-    Number(settings.baseApplicationFee) - Number(settings.referralDiscount)
+    Number(settings.baseApplicationFee) - calculatedDiscount
   );
 
   return (
@@ -234,11 +235,10 @@ export function AdminReferralSettings() {
             </h2>
           </div>
           <span
-            className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-              settings.isReferralEnabled
+            className={`text-xs font-bold px-2.5 py-1 rounded-full ${settings.isReferralEnabled
                 ? 'bg-emerald-100 text-emerald-800'
                 : 'bg-rose-100 text-rose-800'
-            }`}
+              }`}
           >
             {settings.isReferralEnabled ? 'Program Active' : 'Program Paused'}
           </span>
@@ -268,26 +268,32 @@ export function AdminReferralSettings() {
               </p>
             </div>
 
-            {/* Referral Discount Amount */}
+            {/* Referral Discount Percentage */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
-                Default Member Referral Discount (₹)
+                Default Referral Discount (%)
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-2.5 text-gray-500 font-bold text-sm">₹</span>
+                <span className="absolute left-3.5 top-2.5 text-gray-500 font-bold text-sm">%</span>
                 <input
                   type="number"
                   min="0"
-                  max={settings.baseApplicationFee}
-                  value={settings.referralDiscount}
-                  onChange={(e) =>
-                    setSettings({ ...settings, referralDiscount: e.target.value })
-                  }
+                  max="100"
+                  value={settings.referralDiscountPercent}
+                  onChange={(e) => {
+                    const percent = e.target.value;
+                    const discount = Math.round((Number(settings.baseApplicationFee) * Number(percent || 0)) / 100);
+                    setSettings({
+                      ...settings,
+                      referralDiscountPercent: percent,
+                      referralDiscount: discount,
+                    });
+                  }}
                   className="w-full pl-8 pr-4 py-2.5 border border-gray-300 rounded-sm focus:outline-none focus:border-amber text-sm font-semibold text-navy"
                 />
               </div>
               <p className="text-[11px] text-gray-500 mt-1">
-                Discount deducted from the base fee when an applicant enters a valid referrer.
+                Discount percentage deducted from the base fee (e.g. 10% = ₹{calculatedDiscount} discount on ₹{Number(settings.baseApplicationFee).toLocaleString()}).
               </p>
             </div>
           </div>
@@ -299,7 +305,7 @@ export function AdminReferralSettings() {
               <div>
                 <span className="text-xs text-gray-300 block">Candidate Payable Calculation:</span>
                 <span className="text-xs font-medium text-white">
-                  Base Fee (₹{Number(settings.baseApplicationFee).toLocaleString()}) - Referral Discount (₹{Number(settings.referralDiscount).toLocaleString()})
+                  Base Fee (₹{Number(settings.baseApplicationFee).toLocaleString()}) - Referral Discount {settings.referralDiscountPercent}% (₹{calculatedDiscount.toLocaleString()})
                 </span>
               </div>
             </div>
@@ -331,30 +337,22 @@ export function AdminReferralSettings() {
                   Enable Referral Program
                 </span>
                 <span className="text-[11px] text-gray-500 block mt-0.5">
-                  When enabled, candidates see the referral input section on the registration form.
+                  When enabled, candidates can enter referral details on registration to receive the 10% discount.
                 </span>
               </label>
             </div>
 
-            {/* Require Verified Referrer Toggle */}
-            <div className="p-4 bg-slate-50 rounded-sm border border-gray-200 flex items-start gap-3">
-              <input
-                type="checkbox"
-                id="requireVerifiedReferrer"
-                checked={settings.requireVerifiedReferrer}
-                onChange={(e) =>
-                  setSettings({ ...settings, requireVerifiedReferrer: e.target.checked })
-                }
-                className="w-4 h-4 text-amber border-gray-300 rounded focus:ring-amber mt-0.5 cursor-pointer"
-              />
-              <label htmlFor="requireVerifiedReferrer" className="cursor-pointer select-none">
-                <span className="font-heading font-bold text-xs text-navy block">
-                  Require Paid / Verified Referrer Only
+            {/* Open Referral Info */}
+            <div className="p-4 bg-emerald-50 rounded-sm border border-emerald-200 flex items-start gap-3">
+              <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-heading font-bold text-xs text-emerald-900 block">
+                  Open Referral Program Active
                 </span>
-                <span className="text-[11px] text-gray-500 block mt-0.5">
-                  If enabled, only members who have paid the registration fee can refer new candidates.
+                <span className="text-[11px] text-emerald-800 block mt-0.5">
+                  Referral can be anyone (friend, relative, colleague). No prior database registration is required.
                 </span>
-              </label>
+              </div>
             </div>
           </div>
 

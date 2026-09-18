@@ -146,11 +146,10 @@ export function AdminApplications() {
             <button
               key={tab.value}
               onClick={() => updateFilter('status', tab.value)}
-              className={`px-4 py-2 rounded-sm text-xs font-semibold whitespace-nowrap transition-colors ${
-                isActive
+              className={`px-4 py-2 rounded-sm text-xs font-semibold whitespace-nowrap transition-colors ${isActive
                   ? 'bg-navy text-amber shadow-sm font-bold'
                   : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -288,13 +287,12 @@ export function AdminApplications() {
                       <td className="py-3.5 px-4">
                         <div className="space-y-1">
                           <span
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded-xs block w-fit ${
-                              app.payment?.status === 'RECEIVED'
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-xs block w-fit ${app.payment?.status === 'RECEIVED'
                                 ? 'bg-emerald-100 text-emerald-800'
                                 : 'bg-amber-100 text-amber-800'
-                            }`}
+                              }`}
                           >
-                            ₹{app.payment?.amount || 1000} • {app.payment?.status}
+                            ₹{app.payment?.amount || 1499} • {app.payment?.status}
                           </span>
                           {app.payment?.transactionId ? (
                             <span className="font-mono text-[11px] text-gray-700 block">

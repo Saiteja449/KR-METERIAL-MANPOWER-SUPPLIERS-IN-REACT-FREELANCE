@@ -27,7 +27,7 @@ export function Contact() {
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', service: 'manpower', message: '' });
       setTimeout(() => setSubmitStatus('idle'), 5000);
-    }, 1500);
+    }, 1499);
   };
 
   const handleChange = (e) => setFormData(p => ({ ...p, [e.target.name]: e.target.value }));

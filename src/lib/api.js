@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = 'https://api.murarisglamandglow.com/kr1/api';
 
 export async function request(endpoint, options = {}) {
   const token = localStorage.getItem('kr1_token');
@@ -96,9 +96,35 @@ export const api = {
 
   getMyApplication: () => request('/applications/my', { method: 'GET' }),
 
-  downloadMyResume: () => {
+  downloadMyResume: (fileName = 'My_Resume.pdf') => {
+    return api.downloadCandidateResume(fileName);
+  },
+
+  downloadCandidateResume: async (fileName = 'Candidate_Resume.pdf') => {
     const token = localStorage.getItem('kr1_token');
-    window.open(`${API_BASE_URL}/applications/my/resume?token=${token}`, '_blank');
+    const url = `${API_BASE_URL}/applications/my/resume?token=${token || ''}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.message || `Failed to download resume (${response.status})`);
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(downloadUrl);
   },
 
   // Admin
@@ -128,6 +154,33 @@ export const api = {
       method: 'POST',
       body: formData,
     }),
+
+  downloadAdminResume: async (id, fileName = 'Candidate_Resume.pdf') => {
+    const token = localStorage.getItem('kr1_token');
+    const url = `${API_BASE_URL}/admin/applications/${id}/resume?token=${token || ''}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.message || `Failed to download resume (${response.status})`);
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(downloadUrl);
+  },
 
   getResumeDownloadUrl: (id) => {
     const token = localStorage.getItem('kr1_token');

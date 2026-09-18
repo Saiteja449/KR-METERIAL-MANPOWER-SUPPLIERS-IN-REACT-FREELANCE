@@ -72,13 +72,12 @@ export function PaymentStatus() {
         <div className="bg-white rounded-sm shadow-xl border-t-4 border-amber p-8 sm:p-12 text-center">
           {/* Top Status Icon */}
           <div
-            className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${
-              isVerified
+            className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${isVerified
                 ? 'bg-emerald-100 text-emerald-600'
                 : isFailed
-                ? 'bg-rose-100 text-rose-600'
-                : 'bg-amber/10 text-amber'
-            }`}
+                  ? 'bg-rose-100 text-rose-600'
+                  : 'bg-amber/10 text-amber'
+              }`}
           >
             {isVerified ? (
               <CheckCircle2 size={38} className="text-emerald-500" />
@@ -94,16 +93,16 @@ export function PaymentStatus() {
             {isVerified
               ? 'Payment Verified Successfully!'
               : isFailed
-              ? 'Payment Not Completed'
-              : 'Payment Processing...'}
+                ? 'Payment Not Completed'
+                : 'Payment Processing...'}
           </h1>
 
           <p className="text-gray-600 text-sm max-w-lg mx-auto mb-6">
             {isVerified
-              ? `Your registration fee of ₹${(statusData?.amount || statusData?.payment?.amount || 1000).toLocaleString()} has been verified via PhonePe. Your candidate login credentials have been dispatched to your email.`
+              ? `Your registration fee of ₹${(statusData?.amount || statusData?.payment?.amount || 1499).toLocaleString()} has been verified via PhonePe. Your candidate login credentials have been dispatched to your email.`
               : isFailed
-              ? 'The payment was not completed or was cancelled on the gateway. No worry — you can easily retry your UPI/QR payment.'
-              : 'PhonePe is processing your transaction confirmation. Please click Refresh if you just finished paying.'}
+                ? 'The payment was not completed or was cancelled on the gateway. No worry — you can easily retry your UPI/QR payment.'
+                : 'PhonePe is processing your transaction confirmation. Please click Refresh if you just finished paying.'}
           </p>
 
           {/* Details Card */}
@@ -126,7 +125,7 @@ export function PaymentStatus() {
               <div className="flex justify-between items-center pb-3 border-b border-gray-200">
                 <span className="text-xs text-gray-500 font-semibold uppercase">Amount</span>
                 <span className="font-bold text-navy text-sm">
-                  ₹{(statusData.amount || statusData.payment?.amount || 1000).toLocaleString()}
+                  ₹{(statusData.amount || statusData.payment?.amount || 1499).toLocaleString()}
                 </span>
               </div>
 

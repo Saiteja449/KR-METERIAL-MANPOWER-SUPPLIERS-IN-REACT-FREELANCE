@@ -31,8 +31,9 @@ export function Apply() {
   // Referral State
   const [referralConfig, setReferralConfig] = useState({
     isReferralEnabled: true,
-    referralDiscount: 200,
-    baseApplicationFee: 1000,
+    referralDiscountPercent: 10,
+    referralDiscount: 150,
+    baseApplicationFee: 1499,
   });
   const [hasReferral, setHasReferral] = useState(false);
   const [referrerName, setReferrerName] = useState('');
@@ -49,8 +50,9 @@ export function Apply() {
         if (res.success) {
           setReferralConfig({
             isReferralEnabled: res.isReferralEnabled ?? true,
-            referralDiscount: res.referralDiscount ?? 200,
-            baseApplicationFee: res.baseApplicationFee ?? 1000,
+            referralDiscountPercent: res.referralDiscountPercent ?? 10,
+            referralDiscount: res.referralDiscount ?? 150,
+            baseApplicationFee: res.baseApplicationFee ?? 1499,
           });
         }
       } catch (e) {
@@ -125,11 +127,18 @@ export function Apply() {
     }
   };
 
+  const baseFee = referralConfig.baseApplicationFee || 1499;
+  const discountPercent = referralConfig.referralDiscountPercent || 10;
+  const discountAmount = Math.round((baseFee * discountPercent) / 100);
+  const isReferralActive = hasReferral && (isReferralVerified || (referrerName.trim() && referrerPhone.trim().replace(/\D/g, '').length >= 10));
+  const discountApplied = isReferralActive ? discountAmount : 0;
+  const payableFee = Math.max(0, baseFee - discountApplied);
+
   const handleVerifyReferral = async () => {
     setReferralError('');
     if (!referrerName.trim()) {
-      setReferralError("Please enter the referrer's full registered name.");
-      toast.error("Please enter the referrer's full registered name.");
+      setReferralError("Please enter the referrer's name.");
+      toast.error("Please enter the referrer's name.");
       return;
     }
     const cleanPhone = referrerPhone.replace(/\D/g, '');
@@ -152,29 +161,27 @@ export function Apply() {
         setIsReferralVerified(true);
         setVerifiedReferralInfo(res);
         setReferralError('');
-        toast.success(res.message || 'Referral successfully verified!');
+        toast.success(res.message || '10% referral discount applied!');
       } else {
         setIsReferralVerified(false);
         setVerifiedReferralInfo(null);
-        setReferralError(res.message || 'Referral could not be verified.');
-        toast.error(res.message || 'Referral could not be verified.');
+        setReferralError(res.message || 'Referral could not be applied.');
+        toast.error(res.message || 'Referral could not be applied.');
       }
     } catch (err) {
-      setIsReferralVerified(false);
-      setVerifiedReferralInfo(null);
-      setReferralError(err.message || 'Failed to verify referral.');
-      toast.error(err.message || 'Failed to verify referral.');
+      // Since anyone can refer, accept details and apply discount
+      setIsReferralVerified(true);
+      setVerifiedReferralInfo({
+        referrerName: referrerName.trim(),
+        referrerPhone: cleanPhone,
+        discountAmount,
+      });
+      setReferralError('');
+      toast.success(`10% referral discount applied! (-₹${discountAmount})`);
     } finally {
       setVerifyingReferral(false);
     }
   };
-
-  const baseFee = referralConfig.baseApplicationFee || 1000;
-  const discountApplied =
-    hasReferral && isReferralVerified
-      ? verifiedReferralInfo?.discountAmount || referralConfig.referralDiscount
-      : 0;
-  const payableFee = Math.max(0, baseFee - discountApplied);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -217,9 +224,16 @@ export function Apply() {
       return;
     }
 
-    if (hasReferral && !isReferralVerified) {
-      toast.error('Please click "Verify Referral" to validate your referrer before submitting.');
-      return;
+    if (hasReferral) {
+      if (!referrerName.trim()) {
+        toast.error('Please enter the name of the person who referred you.');
+        return;
+      }
+      const cleanRefPhone = referrerPhone.replace(/\D/g, '');
+      if (!cleanRefPhone || cleanRefPhone.length < 10) {
+        toast.error('Please enter a valid 10-digit mobile number for the referrer.');
+        return;
+      }
     }
 
     try {
@@ -240,15 +254,15 @@ export function Apply() {
       formData.append('education', JSON.stringify(education));
       formData.append('resume', resumeFile);
 
-      if (hasReferral && isReferralVerified) {
+      if (hasReferral && referrerName.trim() && referrerPhone.trim().replace(/\D/g, '').length >= 10) {
         formData.append(
           'referral',
           JSON.stringify({
             isReferred: true,
-            referrerName: verifiedReferralInfo?.referrerName || referrerName.trim(),
+            referrerName: referrerName.trim(),
             referrerPhone: referrerPhone.trim(),
             referrerApplicationId: verifiedReferralInfo?.referrerApplicationId || '',
-            discountAmount: discountApplied,
+            discountAmount: discountAmount,
           })
         );
       } else {
@@ -479,22 +493,20 @@ export function Apply() {
                 <button
                   type="button"
                   onClick={() => setApplicantType('fresher')}
-                  className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${
-                    applicantType === 'fresher'
+                  className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${applicantType === 'fresher'
                       ? 'bg-navy text-amber border-navy shadow-md'
                       : 'bg-white text-gray-700 border-gray-300 hover:border-navy-light'
-                  }`}
+                    }`}
                 >
                   Fresher (Entry Level)
                 </button>
                 <button
                   type="button"
                   onClick={() => setApplicantType('experienced')}
-                  className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${
-                    applicantType === 'experienced'
+                  className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${applicantType === 'experienced'
                       ? 'bg-navy text-amber border-navy shadow-md'
                       : 'bg-white text-gray-700 border-gray-300 hover:border-navy-light'
-                  }`}
+                    }`}
                 >
                   Experienced Professional
                 </button>
@@ -776,13 +788,13 @@ export function Apply() {
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-navy text-base flex items-center gap-2">
-                      <span>Employee / Member Referral Discount</span>
+                      <span>Referral Program Discount</span>
                       <span className="text-[11px] bg-amber text-navy font-extrabold px-2 py-0.5 rounded-full">
-                        Save ₹{referralConfig.referralDiscount}
+                        10% Discount (Save ₹{discountAmount})
                       </span>
                     </h3>
                     <p className="text-xs text-gray-500">
-                      Referred by an existing KR registered member or employee? Enter their details to receive an instant ₹{referralConfig.referralDiscount} discount.
+                      Were you referred by someone (friend, relative, colleague, or member)? Enter their details below to receive an instant 10% discount!
                     </p>
                   </div>
                 </div>
@@ -804,7 +816,7 @@ export function Apply() {
                     className="w-4 h-4 text-amber border-gray-300 rounded focus:ring-amber cursor-pointer"
                   />
                   <span className="text-sm font-semibold text-navy">
-                    I was referred by an existing KR registered member / employee
+                    I was referred by someone (Friend / Colleague / Member)
                   </span>
                 </label>
 
@@ -821,8 +833,6 @@ export function Apply() {
                           value={referrerName}
                           onChange={(e) => {
                             setReferrerName(e.target.value);
-                            setIsReferralVerified(false);
-                            setVerifiedReferralInfo(null);
                             setReferralError('');
                           }}
                           className="w-full px-3.5 py-2.5 rounded-sm border border-gray-300 focus:outline-none focus:border-amber text-sm text-navy"
@@ -838,8 +848,6 @@ export function Apply() {
                           value={referrerPhone}
                           onChange={(e) => {
                             setReferrerPhone(e.target.value);
-                            setIsReferralVerified(false);
-                            setVerifiedReferralInfo(null);
                             setReferralError('');
                           }}
                           className="w-full px-3.5 py-2.5 rounded-sm border border-gray-300 focus:outline-none focus:border-amber text-sm text-navy"
@@ -857,21 +865,21 @@ export function Apply() {
                         {verifyingReferral ? (
                           <>
                             <div className="w-3.5 h-3.5 border-2 border-amber border-t-transparent rounded-full animate-spin" />
-                            <span>Verifying Referrer...</span>
+                            <span>Applying 10% Discount...</span>
                           </>
                         ) : (
                           <>
-                            <CheckCircle2 size={14} />
-                            <span>Verify Referral</span>
+                            <Percent size={14} />
+                            <span>Apply 10% Discount</span>
                           </>
                         )}
                       </button>
 
-                      {isReferralVerified && verifiedReferralInfo && (
+                      {isReferralActive && (
                         <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-300 px-3 py-1.5 rounded-sm">
                           <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
                           <span>
-                            ✓ Referral Verified! Referred by {verifiedReferralInfo.referrerName} (₹{verifiedReferralInfo.discountAmount} discount applied)
+                            ✓ 10% Referral Discount Applied! (-₹{discountAmount})
                           </span>
                         </div>
                       )}

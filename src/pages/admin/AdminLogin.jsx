@@ -84,7 +84,7 @@ export function AdminLogin() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@kr1.in"
+                  placeholder="info@kr1.in"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 rounded-sm bg-navy-dark border border-navy-light focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm text-white font-medium"

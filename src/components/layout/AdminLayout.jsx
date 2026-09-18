@@ -175,7 +175,7 @@ export const AdminLayout = () => {
             </div>
             <div className="overflow-hidden">
               <span className="text-xs font-bold text-white block truncate">{user?.name || 'Administrator'}</span>
-              <span className="text-[10px] text-gray-400 block truncate">{user?.email || 'admin@kr1.in'}</span>
+              <span className="text-[10px] text-gray-400 block truncate">{user?.email || 'info@kr1.in'}</span>
             </div>
           </div>
 

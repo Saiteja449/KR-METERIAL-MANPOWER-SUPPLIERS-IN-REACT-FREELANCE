@@ -70,7 +70,7 @@ export function AdminAddApplication() {
   });
 
   const [paymentDetails, setPaymentDetails] = useState({
-    amount: '1000',
+    amount: '1499',
     paymentStatus: 'RECEIVED',
     transactionId: 'ADMIN_OFFLINE_VERIFIED',
   });
@@ -79,7 +79,7 @@ export function AdminAddApplication() {
     isReferred: false,
     referrerName: '',
     referrerPhone: '',
-    discountAmount: '200',
+    discountAmount: '150',
   });
 
   const [applicationStatus, setApplicationStatus] = useState('PAYMENT_RECEIVED');
@@ -201,7 +201,7 @@ export function AdminAddApplication() {
             referrerName: referralDetails.referrerName.trim(),
             referrerPhone: referralDetails.referrerPhone.trim(),
             discountAmount: Number(referralDetails.discountAmount) || 0,
-            originalAmount: 1000,
+            originalAmount: 1499,
           })
         );
       }
@@ -214,8 +214,7 @@ export function AdminAddApplication() {
 
       if (res.success && res.application) {
         toast.success(
-          `Application ${res.application.applicationId} registered successfully! ${
-            res.generatedPassword ? `Credentials emailed: ${res.generatedPassword}` : ''
+          `Application ${res.application.applicationId} registered successfully! ${res.generatedPassword ? `Credentials emailed: ${res.generatedPassword}` : ''
           }`
         );
         navigate(`/admin/applications/${res.application.applicationId}`);
@@ -430,22 +429,20 @@ export function AdminAddApplication() {
               <button
                 type="button"
                 onClick={() => setApplicantType('fresher')}
-                className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${
-                  applicantType === 'fresher'
+                className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${applicantType === 'fresher'
                     ? 'bg-navy text-amber border-navy shadow-md'
                     : 'bg-white text-gray-700 border-gray-300 hover:border-navy-light'
-                }`}
+                  }`}
               >
                 Fresher (Entry Level)
               </button>
               <button
                 type="button"
                 onClick={() => setApplicantType('experienced')}
-                className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${
-                  applicantType === 'experienced'
+                className={`py-3.5 px-4 rounded-sm border text-center font-heading font-bold text-sm transition-all ${applicantType === 'experienced'
                     ? 'bg-navy text-amber border-navy shadow-md'
                     : 'bg-white text-gray-700 border-gray-300 hover:border-navy-light'
-                }`}
+                  }`}
               >
                 Experienced Professional
               </button>
@@ -896,13 +893,13 @@ export function AdminAddApplication() {
                   const checked = e.target.checked;
                   setReferralDetails({ ...referralDetails, isReferred: checked });
                   if (checked) {
-                    const disc = Number(referralDetails.discountAmount) || 200;
+                    const disc = Number(referralDetails.discountAmount) || 150;
                     setPaymentDetails((prev) => ({
                       ...prev,
-                      amount: String(Math.max(0, 1000 - disc)),
+                      amount: String(Math.max(0, 1499 - disc)),
                     }));
                   } else {
-                    setPaymentDetails((prev) => ({ ...prev, amount: '1000' }));
+                    setPaymentDetails((prev) => ({ ...prev, amount: '1499' }));
                   }
                 }}
                 className="w-4 h-4 text-amber border-gray-300 rounded focus:ring-amber cursor-pointer"
@@ -957,7 +954,7 @@ export function AdminAddApplication() {
                     setReferralDetails({ ...referralDetails, discountAmount: disc });
                     setPaymentDetails((prev) => ({
                       ...prev,
-                      amount: String(Math.max(0, 1000 - (Number(disc) || 0))),
+                      amount: String(Math.max(0, 1499 - (Number(disc) || 0))),
                     }));
                   }}
                   className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:border-amber text-navy text-xs font-bold bg-white"
