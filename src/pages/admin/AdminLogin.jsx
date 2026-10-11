@@ -66,7 +66,7 @@ export function AdminLogin() {
               <span>Administrative Portal</span>
             </div>
             <h1 className="text-xl font-heading font-bold text-white">
-              KR Material & Manpower
+              KR1 Material & Manpower
             </h1>
             <p className="text-xs text-gray-400 mt-1">
               Secure Staff & Management System Access

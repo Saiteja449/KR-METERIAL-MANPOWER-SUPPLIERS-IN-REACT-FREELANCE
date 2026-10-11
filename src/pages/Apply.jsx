@@ -18,15 +18,38 @@ import {
   Gift,
   Tag,
   Percent,
+  QrCode,
+  Copy,
+  Check,
+  Smartphone,
+  ShieldCheck,
+  HelpCircle,
+  IndianRupee,
 } from 'lucide-react';
 import { AnimatedPage } from '../components/layout/AnimatedPage';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
 
+// Payment UPI Constants
+const UPI_ID = import.meta.env.VITE_UPI_ID || '9666193543@ybl';
+const QR_IMAGE_PATH = '/assets/images/image.png';
+
 export function Apply() {
   const navigate = useNavigate();
   const toast = useToast();
   const [submitting, setSubmitting] = useState(false);
+
+  // Payment Transaction ID / UTR State
+  const [transactionId, setTransactionId] = useState('');
+  const [copiedUpi, setCopiedUpi] = useState(false);
+
+  const handleCopyUpi = () => {
+    navigator.clipboard.writeText(UPI_ID).then(() => {
+      setCopiedUpi(true);
+      toast.success('UPI ID copied to clipboard!');
+      setTimeout(() => setCopiedUpi(false), 2500);
+    });
+  };
 
   // Referral State
   const [referralConfig, setReferralConfig] = useState({
@@ -236,6 +259,27 @@ export function Apply() {
       }
     }
 
+    // Payment Transaction ID / UTR Validation
+    if (!transactionId.trim()) {
+      toast.error('Payment Transaction ID / UTR number is required. Please complete UPI payment and enter your UTR.');
+      const txnInput = document.getElementById('transaction-id-input');
+      if (txnInput) {
+        txnInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        txnInput.focus();
+      }
+      return;
+    }
+
+    if (transactionId.trim().length < 8) {
+      toast.error('Transaction ID appears too short. Please enter a valid Transaction ID / UTR number.');
+      const txnInput = document.getElementById('transaction-id-input');
+      if (txnInput) {
+        txnInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        txnInput.focus();
+      }
+      return;
+    }
+
     try {
       setSubmitting(true);
 
@@ -253,6 +297,7 @@ export function Apply() {
       );
       formData.append('education', JSON.stringify(education));
       formData.append('resume', resumeFile);
+      formData.append('transactionId', transactionId.trim().toUpperCase());
 
       if (hasReferral && referrerName.trim() && referrerPhone.trim().replace(/\D/g, '').length >= 10) {
         formData.append(
@@ -272,11 +317,16 @@ export function Apply() {
       const res = await api.submitApplication(formData);
 
       if (res.success) {
-        toast.success('Application submitted successfully! Redirecting to payment screen...');
+        toast.success('Application and payment details submitted successfully! Awaiting verification.');
         navigate(`/payment/${res.applicationId}`);
       }
     } catch (err) {
-      toast.error(err.message || 'Failed to submit application. Please check your inputs.');
+      if (err.data?.applicationId) {
+        toast.error(`${err.message} Redirecting to your payment tracking screen...`);
+        navigate(`/payment/${err.data.applicationId}`);
+      } else {
+        toast.error(err.message || 'Failed to submit application. Please check your inputs.');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -309,7 +359,7 @@ export function Apply() {
             transition={{ delay: 0.2 }}
             className="text-gray-600 mt-2 text-sm sm:text-base max-w-2xl mx-auto"
           >
-            Register your profile with KR Material & Manpower Suppliers. Complete your application and verification to access deployed projects and roles.
+            Register your profile with KR1 Material & Manpower Suppliers. Complete your application and verification to access deployed projects and roles.
           </motion.p>
         </div>
 
@@ -897,45 +947,164 @@ export function Apply() {
             </div>
           )}
 
-          {/* Section 6: Payment Notice & Submission */}
-          <div className="bg-navy p-6 rounded-sm text-white space-y-4">
-            <div className="flex items-start gap-3">
-              <CreditCard className="text-amber shrink-0 mt-1" size={24} />
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-navy-light/60 pb-3">
-                  <div>
-                    <h4 className="font-heading font-bold text-base text-amber-light">
-                      Registration & Verification Fee
-                    </h4>
-                    <span className="text-xs text-gray-300">
-                      Standard fee: ₹{baseFee.toLocaleString()}
+          {/* Section 5: Registration Fee Payment & Transaction Details (Mandatory) */}
+          <div className="bg-white rounded-sm border-2 border-navy/20 shadow-lg overflow-hidden">
+            {/* Header / Fee Summary */}
+            <div className="bg-navy p-6 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-amber text-navy flex items-center justify-center font-bold text-sm shrink-0">
+                  5
+                </div>
+                <div>
+                  <h3 className="text-lg font-heading font-bold text-white flex items-center gap-2">
+                    <CreditCard size={20} className="text-amber" />
+                    <span>Registration Fee Payment</span>
+                  </h3>
+                  <span className="text-xs text-gray-300">
+                    Mandatory one-time registration and verification fee
+                  </span>
+                </div>
+              </div>
+
+              <div className="sm:text-right bg-navy-dark/70 px-4 py-3 rounded-sm border border-navy-light/60">
+                <span className="text-xs text-gray-300 block">Total Payable Fee</span>
+                <div className="flex items-baseline sm:justify-end gap-2">
+                  {discountApplied > 0 && (
+                    <span className="text-sm text-gray-400 line-through">
+                      ₹{baseFee.toLocaleString()}
                     </span>
+                  )}
+                  <span className="text-2xl sm:text-3xl font-heading font-extrabold text-amber">
+                    ₹{payableFee.toLocaleString()}
+                  </span>
+                </div>
+                {discountApplied > 0 && (
+                  <span className="text-[11px] text-emerald-400 font-semibold block mt-0.5">
+                    ✓ ₹{discountApplied} Referral Discount Applied
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="p-6 sm:p-8 space-y-6">
+              {/* QR Code and Instructions Box */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start border border-gray-200 rounded-sm p-5 bg-slate-50/70">
+                {/* QR Code Side */}
+                <div className="flex flex-col items-center text-center">
+                  <div className="flex items-center gap-2 mb-3 bg-[#5f259f] text-white px-3 py-1.5 rounded-sm text-xs font-bold self-center shadow-xs">
+                    <Smartphone size={13} />
+                    <span>PhonePe / GPay / Any UPI App</span>
                   </div>
-                  <div className="text-right">
-                    {discountApplied > 0 && (
-                      <span className="text-xs text-gray-400 line-through mr-2">
-                        ₹{baseFee.toLocaleString()}
-                      </span>
-                    )}
-                    <span className="text-2xl sm:text-3xl font-heading font-extrabold text-amber">
-                      ₹{payableFee.toLocaleString()}
-                    </span>
+
+                  <div className="w-56 h-56 bg-white p-2.5 border-2 border-gray-300 rounded-sm shadow-sm flex items-center justify-center">
+                    <img
+                      src={QR_IMAGE_PATH}
+                      alt="PhonePe UPI Payment QR Code"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
+
+                  <span className="text-xs font-semibold text-navy mt-3">
+                    Scan with any UPI app on your phone
+                  </span>
+                  <span className="text-[11px] text-gray-600 mt-0.5">
+                    Amount to Pay:{' '}
+                    <strong className="text-navy font-bold">₹{payableFee.toLocaleString()}</strong>
+                  </span>
                 </div>
 
-                {discountApplied > 0 && (
-                  <div className="flex items-center justify-between text-xs py-2 text-emerald-400 font-semibold border-b border-navy-light/40">
-                    <span className="flex items-center gap-1.5">
-                      <Gift size={13} />
-                      <span>Member Referral Discount Applied:</span>
-                    </span>
-                    <span>-₹{discountApplied.toLocaleString()}</span>
+                {/* Step-by-Step Instructions */}
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-heading font-bold text-navy text-sm flex items-center gap-2 mb-2.5">
+                      <QrCode size={16} className="text-amber shrink-0" />
+                      <span>How to Complete Payment</span>
+                    </h4>
+                    <ol className="space-y-2 text-xs text-gray-700 list-decimal list-inside leading-relaxed">
+                      <li>
+                        Open <strong>PhonePe</strong>, <strong>Google Pay</strong>, or any UPI app.
+                      </li>
+                      <li>
+                        Scan the <strong>QR Code</strong> on the left, or pay to the UPI ID below.
+                      </li>
+                      <li>
+                        Enter exact amount:{' '}
+                        <strong className="text-navy">₹{payableFee.toLocaleString()}</strong>.
+                      </li>
+                      <li>
+                        After paying, copy the <strong>12-digit UTR / Transaction ID</strong> from your UPI confirmation receipt.
+                      </li>
+                      <li>
+                        Paste the UTR number in the box below before clicking submit.
+                      </li>
+                    </ol>
                   </div>
-                )}
 
-                <p className="text-xs text-gray-300 leading-relaxed mt-2.5">
-                  Upon clicking submit, you will be redirected to the secure PhonePe Payment Gateway to pay the fee of ₹{payableFee.toLocaleString()} using any UPI app or Dynamic QR code. Once confirmed, your candidate login credentials will be generated and emailed to you automatically.
+                  {/* UPI ID Box */}
+                  <div className="pt-2 border-t border-gray-200">
+                    <span className="text-[11px] text-gray-500 font-semibold block mb-1.5">
+                      Direct UPI ID:
+                    </span>
+                    <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-sm border border-gray-300">
+                      <CreditCard size={15} className="text-[#5f259f] shrink-0" />
+                      <span className="font-mono font-bold text-navy text-xs flex-1 truncate">
+                        {UPI_ID}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCopyUpi}
+                        className="flex items-center gap-1.5 px-3 py-1 bg-navy text-amber hover:bg-navy-light rounded-sm text-xs font-bold transition-colors cursor-pointer"
+                        title="Copy UPI ID"
+                      >
+                        {copiedUpi ? <Check size={13} /> : <Copy size={13} />}
+                        <span>{copiedUpi ? 'Copied!' : 'Copy'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Transaction ID / UTR Input */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="transaction-id-input"
+                  className="block text-xs font-bold uppercase tracking-wider text-navy"
+                >
+                  Enter 12-Digit Payment Transaction ID / UTR Number{' '}
+                  <span className="text-rose-500">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    id="transaction-id-input"
+                    type="text"
+                    required
+                    placeholder="e.g. 423987123456 or T24083015..."
+                    value={transactionId}
+                    onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
+                    className="w-full px-4 py-3.5 rounded-sm border-2 border-gray-300 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber text-sm font-mono text-navy font-bold tracking-wide"
+                  />
+                </div>
+                <p className="text-[11px] text-gray-500 flex items-center gap-1">
+                  <HelpCircle size={12} className="text-gray-400 shrink-0" />
+                  <span>
+                    Your 12-digit UTR is visible on your PhonePe / Google Pay / Bank receipt after transferring ₹{payableFee.toLocaleString()}.
+                  </span>
                 </p>
+              </div>
+
+              {/* Trust Footer */}
+              <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-gray-500 pt-3 border-t border-gray-100">
+                <span className="flex items-center gap-1">
+                  <ShieldCheck size={13} className="text-emerald-600" />
+                  <span>Administrative Verification Required</span>
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <IndianRupee size={13} className="text-amber" />
+                  <span>One-time Registration Fee</span>
+                </span>
+                <span>•</span>
+                <span>Support: +91 9666193543 | info@kr1.in</span>
               </div>
             </div>
           </div>
@@ -957,11 +1126,12 @@ export function Apply() {
               {submitting ? (
                 <>
                   <div className="w-5 h-5 border-2 border-navy border-t-transparent rounded-full animate-spin" />
-                  <span>Submitting Application...</span>
+                  <span>Submitting Application & Payment...</span>
                 </>
               ) : (
                 <>
-                  <span>Submit & Proceed to Payment (₹{payableFee.toLocaleString()})</span>
+                  <ShieldCheck size={20} />
+                  <span>Submit Application & Payment (₹{payableFee.toLocaleString()})</span>
                   <ArrowRight size={18} />
                 </>
               )}

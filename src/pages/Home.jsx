@@ -156,7 +156,7 @@ export function Home() {
                   Driving Industrial Excellence
                 </h2>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                  Based in Kakinada, Andhra Pradesh, KR Material & Manpower Supplies is a premier provider of industrial support services. We bridge the gap between global industrial demands and highly qualified operational talent.
+                  Based in Kakinada, Andhra Pradesh, KR1 Material & Manpower Supplies is a premier provider of industrial support services. We bridge the gap between global industrial demands and highly qualified operational talent.
                 </p>
                 <ul className="space-y-4 mb-8">
                   {[
@@ -327,7 +327,7 @@ export function Home() {
               Ready to Upgrade Your Operations?
             </h2>
             <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-              Partner with KR Material & Manpower Supplies for unparalleled industrial support. Reach out to our experts today for a customized solution.
+              Partner with KR1 Material & Manpower Supplies for unparalleled industrial support. Reach out to our experts today for a customized solution.
             </p>
             <Link 
               to="/contact" 

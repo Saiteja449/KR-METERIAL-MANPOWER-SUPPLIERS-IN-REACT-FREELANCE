@@ -128,7 +128,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-navy-light flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} KR Material & Manpower Supplies. All rights reserved.
+            © {new Date().getFullYear()} KR1 Material & Manpower Supplies. All rights reserved.
           </p>
           <div className="flex gap-4 text-sm text-gray-500">
             <Link to="/login" className="hover:text-amber transition-colors">Candidate Login</Link>

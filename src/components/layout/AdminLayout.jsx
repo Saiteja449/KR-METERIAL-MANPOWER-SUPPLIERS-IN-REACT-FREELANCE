@@ -126,7 +126,7 @@ export const AdminLayout = () => {
             <img src="/assets/images/KRLOGO.jpeg" alt="KR Logo" className="h-10 w-auto rounded-sm" />
             <div>
               <span className="font-heading font-extrabold text-base text-white block leading-tight">
-                KR Material
+                KR1 Material
               </span>
               <span className="text-[11px] font-semibold tracking-wider text-amber uppercase flex items-center gap-1 mt-0.5">
                 <ShieldCheck size={12} /> Admin Portal

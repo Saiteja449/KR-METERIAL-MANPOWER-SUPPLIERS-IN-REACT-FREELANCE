@@ -63,7 +63,7 @@ export function Contact() {
                 <div className="bg-white p-8 rounded-sm shadow-xl h-full border-b-4 border-amber">
                   <MapPin size={28} className="text-amber mb-4" />
                   <h3 className="font-heading font-bold text-navy text-xl">Head Office</h3>
-                  <p className="text-gray-600 text-sm mt-2">KR Material & Manpower Supplies<br/>Kakinada, AP, India - 533002</p>
+                  <p className="text-gray-600 text-sm mt-2">KR1 Material & Manpower Supplies<br/>Kakinada, AP, India - 533002</p>
                 </div>
               </FadeUp>
               <FadeUp delay={0.2}>

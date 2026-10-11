@@ -77,7 +77,7 @@ export function About() {
               </h2>
               <div className="space-y-4 text-gray-600 text-lg leading-relaxed mb-8">
                 <p>
-                  Established in Kakinada, Andhra Pradesh, <strong>KR Material & Manpower Supplies</strong> has grown into a formidable backbone for the region's industrial sector. We specialize in providing comprehensive support services that allow our clients to focus on their core operations.
+                  Established in Kakinada, Andhra Pradesh, <strong>KR1 Material & Manpower Supplies</strong> has grown into a formidable backbone for the region's industrial sector. We specialize in providing comprehensive support services that allow our clients to focus on their core operations.
                 </p>
                 <p>
                   Whether it is supplying highly skilled riggers to an offshore platform, managing complex warehouse logistics, or providing diving support vessels, our commitment to excellence remains unwavering. We don't just supply manpower; we provide operational assurance.
@@ -138,7 +138,7 @@ export function About() {
       </section>
 
       {/* Leadership */}
-      <section className="py-24 bg-white">
+      {/* <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <FadeUp>
@@ -159,7 +159,7 @@ export function About() {
                     <h3 className="text-2xl font-heading font-bold text-navy mb-1">Mr. Kamaraju Neelapalli</h3>
                     <p className="text-cyan-dark font-semibold text-sm uppercase tracking-wider mb-6">Managing Director</p>
                     <p className="text-gray-600 leading-relaxed">
-                      With extensive experience in industrial operations and manpower deployment, Mr. Neelapalli leads the strategic direction of KR Material & Manpower Supplies. His dedication to client satisfaction and worker safety has established the company as a preferred vendor for major offshore and marine projects operating out of the East Coast of India.
+                      With extensive experience in industrial operations and manpower deployment, Mr. Neelapalli leads the strategic direction of KR1 Material & Manpower Supplies. His dedication to client satisfaction and worker safety has established the company as a preferred vendor for major offshore and marine projects operating out of the East Coast of India.
                     </p>
                   </div>
                 </div>
@@ -167,7 +167,7 @@ export function About() {
             </FadeUp>
           </div>
         </div>
-      </section>
+      </section> */}
     </AnimatedPage>
   );
 }
