@@ -38,8 +38,8 @@ export function Navbar() {
       <header
         className={cn(
           'fixed w-full top-0 z-50 transition-all duration-300 ease-in-out',
-          isScrolled 
-            ? 'bg-navy/95 backdrop-blur-md shadow-lg py-3' 
+          isScrolled
+            ? 'bg-navy/95 backdrop-blur-md shadow-lg py-3'
             : 'bg-navy/80 backdrop-blur-xs py-4 sm:py-5'
         )}
       >
@@ -52,8 +52,8 @@ export function Navbar() {
                 <span className="font-heading font-extrabold text-base sm:text-xl tracking-tight text-white leading-[1.1] sm:leading-tight">
                   Material & Manpower
                 </span>
-                <span className="text-[10px] text-amber tracking-widest uppercase font-semibold">
-                  Suppliers & Industrial Support
+                <span className="text-[8px] text-amber tracking-widest uppercase font-semibold">
+                  Guiding job seekers,Connecting Talent, Building Careers
                 </span>
               </div>
             </Link>
@@ -72,11 +72,11 @@ export function Navbar() {
                     )}
                   >
                     {link.name}
-                    <span 
+                    <span
                       className={cn(
                         "absolute bottom-0 left-0 w-full h-[2px] bg-amber transform origin-left transition-transform duration-300",
                         isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      )} 
+                      )}
                     />
                   </Link>
                 );
@@ -137,7 +137,7 @@ export function Navbar() {
             <div className="md:hidden flex items-center gap-2">
               <Link
                 to="/apply"
-                className="bg-amber text-navy font-bold px-3 py-1.5 rounded-sm text-xs"
+                className="hidden bg-amber text-navy font-bold px-3 py-1.5 rounded-sm text-xs"
               >
                 Apply
               </Link>
@@ -178,8 +178,8 @@ export function Navbar() {
               ))}
 
               <div className="pt-4 space-y-3">
-                <Link 
-                  to="/apply" 
+                <Link
+                  to="/apply"
                   className="flex items-center justify-center gap-2 w-full bg-amber text-navy font-bold px-6 py-3.5 rounded-sm transition-colors text-base"
                 >
                   <FilePlus size={18} />

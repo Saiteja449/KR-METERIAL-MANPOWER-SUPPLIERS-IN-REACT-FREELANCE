@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="bg-navy-dark text-gray-300 pt-20 pb-10 border-t border-navy-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          
+
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
@@ -16,8 +16,8 @@ export function Footer() {
                 <span className="font-heading font-extrabold text-xl tracking-tight text-white leading-tight whitespace-nowrap">
                   Material & Manpower
                 </span>
-                <span className="text-[10px] text-amber tracking-widest uppercase font-semibold">
-                  Suppliers & Industrial Support
+                <span className="text-[8px] text-amber tracking-widest uppercase font-semibold">
+                  Guiding job seekers,Connecting Talent, Building Careers
                 </span>
               </div>
             </div>
